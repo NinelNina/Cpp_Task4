@@ -6,7 +6,7 @@ using namespace std;
 class Subject
 {
 private:
-	string name;
+	string _name;
 public:
 	Subject(string name);
 	~Subject();

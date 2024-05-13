@@ -58,12 +58,18 @@ void CTextDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
-		// TODO: add storing code here
+		ar.WriteString(_text);
 	}
 	else
 	{
-		// TODO: add loading code here
+		ar.ReadString(_text);
 	}
+}
+
+const CString& CTextDoc::GetText() 
+{
+
+	return _text;
 }
 
 #ifdef SHARED_HANDLERS

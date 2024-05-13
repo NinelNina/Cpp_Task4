@@ -10,8 +10,8 @@ using namespace std;
 class Student
 {
 	private:
-		string surname;
-		set<Subject*> subjects;
+		string _surname;
+		set<Subject*> _subjects;
 	public:
 		Student(string surname, Subject* subject);
 		Student(string surname);

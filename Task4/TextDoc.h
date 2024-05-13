@@ -12,11 +12,14 @@ protected: // create from serialization only
 	CTextDoc() noexcept;
 	DECLARE_DYNCREATE(CTextDoc)
 
+	CString _text;
+
 // Attributes
 public:
 
 // Operations
 public:
+	const CString& GetText();
 
 // Overrides
 public:

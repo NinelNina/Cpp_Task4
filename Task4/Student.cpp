@@ -2,29 +2,29 @@
 #include "Student.h"
 
 Student::Student(string surname) {
-	this->surname = surname;
+	_surname = surname;
 }
 
 Student::Student(string surname, Subject* subject) {
-	this->surname = surname;
-	this->subjects.insert(subject);
+	_surname = surname;
+	_subjects.insert(subject);
 }
 
 string Student::getSurname() {
-	return surname;
+	return _surname;
 }
 
 set<Subject*> Student::getSubjects(){
-	return subjects;
+	return _subjects;
 }
 
 Student::~Student() {
-	for (auto subject : subjects) {
+	for (auto subject : _subjects) {
 		delete subject;
 	}
-	subjects.clear();
+	_subjects.clear();
 }
 
 void Student::addSubject(Subject* subject) {
-	subjects.insert(subject);
+	_subjects.insert(subject);
 }

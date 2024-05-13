@@ -2,13 +2,13 @@
 #include "Subject.h"
 
 Subject::Subject(string name) {
-	this->name = name;
+	_name = name;
 }
 
 Subject::~Subject() { }
 
 string Subject::getName()
 {
-	return name;
+	return _name;
 }
 
