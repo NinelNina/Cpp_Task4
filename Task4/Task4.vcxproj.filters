@@ -48,7 +48,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="student_manager.h">
+    <ClInclude Include="UniversityManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Student.h">
@@ -83,7 +83,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="student_manager.cpp">
+    <ClCompile Include="UniversityManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Student.cpp">

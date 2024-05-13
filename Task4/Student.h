@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <set>
 #include <vector>
 #include <string>
@@ -12,12 +11,13 @@ class Student
 {
 	private:
 		string surname;
-		// добавить отдельный список предметов
-		// сравнивать по указателю
-		// set<Subject>
 		set<Subject*> subjects;
 	public:
+		Student(string surname, Subject* subject);
+		Student(string surname);
+		~Student();
 		string getSurname();
+		void addSubject(Subject* subject);
 		set<Subject*> getSubjects();
 };
 
