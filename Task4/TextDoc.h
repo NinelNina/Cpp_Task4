@@ -5,12 +5,13 @@
 
 #pragma once
 
-
 class CTextDoc : public CDocument
 {
 protected: // create from serialization only
 	CTextDoc() noexcept;
 	DECLARE_DYNCREATE(CTextDoc)
+
+	BOOL IsTextValid();
 
 	CString _text;
 
@@ -48,4 +49,7 @@ protected:
 	// Helper function that sets search content for a Search Handler
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+public:
+	afx_msg void OnUpdateToolsLoadToTable(CCmdUI* pCmdUI);
+	afx_msg void OnToolsLoadToTable();
 };

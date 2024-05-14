@@ -33,6 +33,7 @@
 #include <set>
 #include <vector>
 #include <string>
+#include <atlconv.h>
 
 
 

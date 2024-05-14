@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
 	ON_WM_SETTINGCHANGE()
+	//ON_COMMAND(ID_TOOLS_LOADTOTABLE, &CMainFrame::OnToolsLoadtotable)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -375,3 +376,12 @@ void CMainFrame::OnSettingChange(UINT uFlags, LPCTSTR lpszSection)
 	CMDIFrameWndEx::OnSettingChange(uFlags, lpszSection);
 	m_wndOutput.UpdateFonts();
 }
+
+
+//void CMainFrame::OnToolsLoadtotable()
+//{
+//	
+//	TableDialog* pDlg = new TableDialog();
+//	pDlg->Create(IDD_DIALOG1, this);
+//	pDlg->ShowWindow(SW_SHOW);
+//}

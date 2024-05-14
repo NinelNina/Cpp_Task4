@@ -18,6 +18,7 @@
 #endif
 
 
+
 // CTask4TextView
 
 IMPLEMENT_DYNCREATE(CTask4TextView, CView)
@@ -25,14 +26,13 @@ IMPLEMENT_DYNCREATE(CTask4TextView, CView)
 BEGIN_MESSAGE_MAP(CTask4TextView, CView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+    ON_COMMAND(ID_TOOLS_LOADTOTABLE, &CTask4TextView::OnToolsLoadToTable)
 END_MESSAGE_MAP()
 
 // CTask4TextView construction/destruction
 
 CTask4TextView::CTask4TextView() noexcept
 {
-	// TODO: add construction code here
-
 }
 
 CTask4TextView::~CTask4TextView()
@@ -49,14 +49,29 @@ BOOL CTask4TextView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CTask4TextView drawing
 
-void CTask4TextView::OnDraw(CDC* /*pDC*/)
+void CTask4TextView::OnDraw(CDC* pDC)
 {
+	const int textH = 40;
+	const int textW = 15;
+
 	CTextDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 
-	// TODO: add draw code for native data here
+	RECT r;
+	CPen pen;
+	pen.CreatePen(0, 20, COLOR_WINDOWTEXT);
+	CFont font;
+	font.CreateFontW(textH, textW, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, _T("Arial"));
+	CFont* oldFont = pDC->SelectObject(&font);
+
+	GetClientRect(&r);
+	CPen* oldPen = pDC->SelectObject(&pen);
+	CString text = pDoc->GetText();
+	pDC->DrawTextEx(text, &r, 0, 0);
+	pDC->SelectObject(oldPen);
+	pDC->SelectObject(oldFont);
 }
 
 void CTask4TextView::OnRButtonUp(UINT /* nFlags */, CPoint point)
@@ -71,7 +86,6 @@ void CTask4TextView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
-
 
 // CTask4TextView diagnostics
 
@@ -95,3 +109,13 @@ CTextDoc* CTask4TextView::GetDocument() const // non-debug version is inline
 
 
 // CTask4TextView message handlers
+
+
+void CTask4TextView::OnToolsLoadToTable()
+{
+	CTextDoc* pDoc = GetDocument();
+
+	TableDialog* pDlg = new TableDialog(this, pDoc->_text);
+	pDlg->Create(IDD_DIALOG1, this);
+	pDlg->ShowWindow(SW_SHOW);
+}

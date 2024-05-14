@@ -18,11 +18,13 @@
 #define new DEBUG_NEW
 #endif
 
+
 // CTextDoc
 
 IMPLEMENT_DYNCREATE(CTextDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CTextDoc, CDocument)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_LOADTOTABLE, &CTextDoc::OnUpdateToolsLoadToTable)
 END_MESSAGE_MAP()
 
 
@@ -30,9 +32,46 @@ END_MESSAGE_MAP()
 
 CTextDoc::CTextDoc() noexcept
 {
-	// TODO: add one-time construction code here
+	_text = _T("Untitled");
 
 }
+
+BOOL CTextDoc::IsTextValid()
+{
+	CStringArray lines;
+	int pos = 0;
+	while (pos < _text.GetLength())
+	{
+		int nextPos = _text.Find(_T("\n"), pos);
+		if (nextPos == -1)
+		{
+			lines.Add(_text.Mid(pos));
+			break;
+		}
+		lines.Add(_text.Mid(pos, nextPos - pos));
+		pos = nextPos + 1;
+	}
+
+	for (int i = 0; i < lines.GetSize(); i++)
+	{
+		CString line = lines[i].Trim();
+		if (line.IsEmpty())
+			continue;
+
+		int firstSpacePos = line.Find(_T(' '));
+		if (firstSpacePos == -1)
+			return false;
+
+		CString lastName = line.Left(firstSpacePos);
+		CString subject = line.Mid(firstSpacePos + 1).Trim();
+
+		if (lastName.IsEmpty() || subject.IsEmpty())
+			return false;
+	}
+
+	return true;
+}
+
 
 CTextDoc::~CTextDoc()
 {
@@ -58,13 +97,32 @@ void CTextDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
-		ar.WriteString(_text);
+		USES_CONVERSION;
+		int charCnt = _text.GetLength();
+		char* buf = new char[charCnt * 2 + 1];
+		int convertedChars = WideCharToMultiByte(CP_UTF8, 0, _text.GetBuffer(), charCnt, buf, charCnt * 2, 0, 0);
+
+		ar.Write(buf, convertedChars);
+		delete[] buf;
 	}
 	else
 	{
-		ar.ReadString(_text);
+		_text = L"";
+
+		const int bufSize = 1024 * 1024;
+		char* buf = new char[bufSize + 1];
+
+		while (int count = ar.Read(buf, bufSize))
+		{
+			CStringA tempA(buf, count);
+			CStringW tempW(CA2W(tempA.GetBuffer(), CP_UTF8));
+			_text.Append(tempW);
+		}
+
+		delete[] buf;
 	}
 }
+
 
 const CString& CTextDoc::GetText() 
 {
@@ -142,3 +200,9 @@ void CTextDoc::Dump(CDumpContext& dc) const
 
 
 // CTextDoc commands
+
+
+void CTextDoc::OnUpdateToolsLoadToTable(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable(IsTextValid());
+}

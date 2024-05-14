@@ -3,18 +3,16 @@
 //
 
 #pragma once
-
+#include "TableDialog.h"
 
 class CTask4TextView : public CView
 {
 protected: // create from serialization only
 	CTask4TextView() noexcept;
 	DECLARE_DYNCREATE(CTask4TextView)
-
 // Attributes
 public:
 	CTextDoc* GetDocument() const;
-
 // Operations
 public:
 
@@ -31,7 +29,6 @@ public:
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
-
 protected:
 
 // Generated message map functions
@@ -40,6 +37,8 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnToolsLoadToTable();
 };
 
 #ifndef _DEBUG  // debug version in Task4TextView.cpp

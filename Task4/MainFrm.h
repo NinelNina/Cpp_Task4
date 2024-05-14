@@ -5,6 +5,7 @@
 #pragma once
 #include "OutputWnd.h"
 #include "PropertiesWnd.h"
+#include "TableDialog.h"
 
 class CMainFrame : public CMDIFrameWndEx
 {
@@ -52,6 +53,8 @@ protected:
 
 	BOOL CreateDockingWindows();
 	void SetDockingWindowIcons(BOOL bHiColorIcons);
+public:
+	afx_msg void OnToolsLoadtotable();
 };
 
 
