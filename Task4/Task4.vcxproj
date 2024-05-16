@@ -191,8 +191,9 @@
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Student.h" />
+    <ClInclude Include="SubjectManager.h" />
     <ClInclude Include="TableDialog.h" />
-    <ClInclude Include="UniversityManager.h" />
+    <ClInclude Include="StudentManager.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Task4.h" />
@@ -211,8 +212,9 @@
     </ClCompile>
     <ClCompile Include="PropertiesWnd.cpp" />
     <ClCompile Include="Student.cpp" />
+    <ClCompile Include="SubjectManager.cpp" />
     <ClCompile Include="TableDialog.cpp" />
-    <ClCompile Include="UniversityManager.cpp" />
+    <ClCompile Include="StudentManager.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Task4.cpp" />
     <ClCompile Include="Task4TextView.cpp" />

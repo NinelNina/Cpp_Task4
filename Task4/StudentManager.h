@@ -5,17 +5,17 @@
 
 using namespace std;
 
-class UniversityManager
+class StudentManager
 {
 private:
 	vector<Student*> _students;
-	vector<Subject*> _subjects;
-	//void addStudent();
-	//void addSubject();
 public:
-	UniversityManager();
-	~UniversityManager();
+	StudentManager();
+	~StudentManager();
+	
+	void AddStudent(Student* student);
+	const vector<Student*> GetStudents();
 	vector<Student*> findStudents(vector<Subject*> learningSubjects, vector<Subject*> notlearningSubjects);
-	void inputFile(string filename);
+	//void inputFile(string filename);
 };
 

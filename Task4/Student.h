@@ -2,7 +2,7 @@
 
 #include <set>
 #include <vector>
-#include <string>
+#include <CString>
 #include "Subject.h"
 
 using namespace std;
@@ -10,13 +10,13 @@ using namespace std;
 class Student
 {
 	private:
-		string _surname;
+		CString _surname;
 		set<Subject*> _subjects;
 	public:
-		Student(string surname, Subject* subject);
-		Student(string surname);
+		Student(CString surname, Subject* subject);
+		Student(CString surname);
 		~Student();
-		string getSurname();
+		CString getSurname();
 		void addSubject(Subject* subject);
 		set<Subject*> getSubjects();
 };

@@ -28,7 +28,8 @@
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
 #include "Subject.h"
-#include "UniversityManager.h"
+#include "SubjectManager.h"
+#include "StudentManager.h"
 #include "Student.h"
 #include <set>
 #include <vector>

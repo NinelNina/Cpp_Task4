@@ -1,16 +1,16 @@
 #include "pch.h"
 #include "Student.h"
 
-Student::Student(string surname) {
+Student::Student(CString surname) {
 	_surname = surname;
 }
 
-Student::Student(string surname, Subject* subject) {
+Student::Student(CString surname, Subject* subject) {
 	_surname = surname;
 	_subjects.insert(subject);
 }
 
-string Student::getSurname() {
+CString Student::getSurname() {
 	return _surname;
 }
 
@@ -19,9 +19,6 @@ set<Subject*> Student::getSubjects(){
 }
 
 Student::~Student() {
-	for (auto subject : _subjects) {
-		delete subject;
-	}
 	_subjects.clear();
 }
 

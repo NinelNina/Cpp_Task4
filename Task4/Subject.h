@@ -6,10 +6,10 @@ using namespace std;
 class Subject
 {
 private:
-	string _name;
+	CString _name;
 public:
-	Subject(string name);
+	Subject(CString name);
 	~Subject();
-	string getName();
+	CString getName();
 };
 

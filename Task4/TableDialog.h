@@ -1,5 +1,6 @@
 #pragma once
 #include "afxdialogex.h"
+#include "pch.h"
 
 
 // TableDialog dialog
@@ -20,12 +21,16 @@ public:
 
 protected:
 	CString _tableText;
+	StudentManager _studentManager;
 	
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	int OnInitDialog();
 
 	void LoadData();
+	void InputToTable();
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedButton1();
 };
