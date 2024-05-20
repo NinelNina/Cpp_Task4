@@ -17,8 +17,6 @@
 #define new DEBUG_NEW
 #endif
 
-
-
 // CTask4TextView
 
 IMPLEMENT_DYNCREATE(CTask4TextView, CView)

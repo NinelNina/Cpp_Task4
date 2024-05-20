@@ -43,5 +43,4 @@ SubjectManager::~SubjectManager()
     for (auto subject : _subjects) {
         delete subject;
     }
-    _subjects.clear();
 }

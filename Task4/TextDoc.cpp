@@ -89,8 +89,6 @@ BOOL CTextDoc::OnNewDocument()
 }
 
 
-
-
 // CTextDoc serialization
 
 void CTextDoc::Serialize(CArchive& ar)

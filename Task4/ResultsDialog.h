@@ -7,7 +7,7 @@ class ResultsDialog : public CDialogEx
     DECLARE_DYNAMIC(ResultsDialog)
 
 public:
-    ResultsDialog(CWnd* pParent = nullptr, const std::vector<Student*>& students = {});
+    ResultsDialog(CWnd* pParent = nullptr, vector<Student*> students = {}, vector<Subject*> learningSubjects = {}, vector<Subject*> notLearningSubjects = {});
     virtual ~ResultsDialog();
 
 #ifdef AFX_DESIGN_TIME
@@ -22,6 +22,13 @@ protected:
 
 private:
     CListCtrl _resultsList;
-    std::vector<Student*> _students;
+    CListCtrl _learningList;
+    CListCtrl _notLearningList;
+    vector<Subject*> _learningSubjects;
+    vector<Subject*> _notLearningSubjects;
+    vector<Student*> _students;
     void LoadData();
+public:
+    afx_msg void OnBnClickedOk();
+    
 };

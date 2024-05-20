@@ -103,7 +103,7 @@ void FindStudentsDialog::OnBnClickedOk()
 
     vector<Student*> students = _studentManager->FindStudents(learningSubjects, notLearningSubjects);
 
-    ResultsDialog* pResultsDialog = new ResultsDialog(this, students);
+    ResultsDialog* pResultsDialog = new ResultsDialog(this, students, learningSubjects, notLearningSubjects);
     pResultsDialog->Create(IDD_RESULTS_DIALOG, this);
     pResultsDialog->ShowWindow(SW_SHOW);
 

@@ -4,6 +4,7 @@
 
 #pragma once
 #include "TableDialog.h"
+#include "TextDoc.h"
 
 class CTask4TextView : public CView
 {

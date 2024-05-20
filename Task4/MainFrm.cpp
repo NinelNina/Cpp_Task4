@@ -376,12 +376,3 @@ void CMainFrame::OnSettingChange(UINT uFlags, LPCTSTR lpszSection)
 	CMDIFrameWndEx::OnSettingChange(uFlags, lpszSection);
 	m_wndOutput.UpdateFonts();
 }
-
-
-//void CMainFrame::OnToolsLoadtotable()
-//{
-//	
-//	TableDialog* pDlg = new TableDialog();
-//	pDlg->Create(IDD_DIALOG1, this);
-//	pDlg->ShowWindow(SW_SHOW);
-//}

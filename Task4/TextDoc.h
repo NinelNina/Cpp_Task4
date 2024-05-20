@@ -51,5 +51,4 @@ protected:
 #endif // SHARED_HANDLERS
 public:
 	afx_msg void OnUpdateToolsLoadToTable(CCmdUI* pCmdUI);
-	afx_msg void OnToolsLoadToTable();
 };

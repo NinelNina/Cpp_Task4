@@ -11,7 +11,6 @@ StudentManager::~StudentManager()
     for (auto student : _students) {
         delete student;
     }
-    _students.clear();
 }
 
 void StudentManager::AddStudent(Student* student)
