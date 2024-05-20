@@ -9,12 +9,18 @@ using namespace std;
 class Logger
 {
 public:
-    static Logger& Instance();
+    enum LogLevel {
+        INFO,
+        WARNING,
+        ERR
+    };
 
-    void Log(const string& message);
+    static Logger& Instance();
+    void Log(const string& message, LogLevel level = INFO);
 
 private:
     Logger();
     ~Logger();
     string GetCurrentTime();
+    string LogLevelToString(LogLevel level);
 };

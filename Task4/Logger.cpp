@@ -7,13 +7,13 @@ Logger& Logger::Instance()
     return instance;
 }
 
-void Logger::Log(const string& message)
+void Logger::Log(const string& message, LogLevel level)
 {
     ofstream logFile;
     logFile.open("log.txt", ios_base::app);
     if (logFile.is_open())
     {
-        logFile << GetCurrentTime() << " - " << message << endl;
+        logFile << GetCurrentTime() << " - " << LogLevelToString(level) << " - " << message << endl;
         logFile.close();
     }
 }
@@ -32,4 +32,19 @@ string Logger::GetCurrentTime()
 
 Logger::~Logger()
 {
+}
+
+string Logger::LogLevelToString(LogLevel level)
+{
+    switch (level)
+    {
+    case INFO:
+        return "INFO";
+    case WARNING:
+        return "WARNING";
+    case ERR:
+        return "ERROR";
+    default:
+        return "UNKNOWN";
+    }
 }

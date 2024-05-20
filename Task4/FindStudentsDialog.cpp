@@ -117,6 +117,6 @@ void FindStudentsDialog::OnBnClickedOk()
 
 void FindStudentsDialog::OnBnClickedCancel()
 {
-    Logger::Instance().Log("Поиск отменён.");
+    Logger::Instance().Log("Поиск отменён.", Logger::WARNING);
     CDialogEx::OnCancel();
 }

@@ -219,7 +219,7 @@ void CTextDoc::OnUpdateToolsLoadToTable(CCmdUI* pCmdUI)
 	pCmdUI->Enable(isTextValid);
 	if (!isTextValid && !loggedTextfileFormat)
 	{
-		Logger::Instance().Log("Текст не соответствует формату \"Фамилия Предмет\".");
+		Logger::Instance().Log("Текст не соответствует формату \"Фамилия Предмет\".", Logger::ERR);
 		loggedTextfileFormat = true;
 	}
 	else if (!loggedTextfileFormat) {
