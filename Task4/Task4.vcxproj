@@ -184,13 +184,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="FindStudentsDialog.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResultsDialog.h" />
     <ClInclude Include="Student.h" />
+    <ClInclude Include="SubjectComparator.h" />
     <ClInclude Include="SubjectManager.h" />
     <ClInclude Include="TableDialog.h" />
     <ClInclude Include="StudentManager.h" />
@@ -202,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="FindStudentsDialog.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
     <ClCompile Include="pch.cpp">
@@ -211,7 +215,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PropertiesWnd.cpp" />
+    <ClCompile Include="ResultsDialog.cpp" />
     <ClCompile Include="Student.cpp" />
+    <ClCompile Include="SubjectComparator.cpp" />
     <ClCompile Include="SubjectManager.cpp" />
     <ClCompile Include="TableDialog.cpp" />
     <ClCompile Include="StudentManager.cpp" />

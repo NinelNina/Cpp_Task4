@@ -7,8 +7,7 @@ Subject::Subject(CString name) {
 
 Subject::~Subject() { }
 
-CString Subject::getName()
+CString Subject::GetName() const
 {
 	return _name;
 }
-

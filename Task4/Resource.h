@@ -48,9 +48,17 @@
 #define IDS_FIND_TAB                    302
 #define IDS_EDIT_MENU                   306
 #define IDD_DIALOG1                     310
+#define IDD_TABLE_DIALOG                310
 #define IDD_DIALOG2                     312
+#define IDD_FIND_STUDENTS_DIALOG        312
+#define IDD_RESULT_DIALOG               314
+#define IDD_RESULTS_DIALOG              314
 #define IDC_LIST1                       1000
+#define IDC_STUDENTS_LIST               1000
+#define IDC_LEARNING_LIST               1000
+#define IDC_RESULTS_LIST                1000
 #define IDC_CHECK1                      1001
+#define IDC_NOT_LEARNING_LIST           1001
 #define IDC_BUTTON1                     1002
 #define ID_TOOLS_LOADTOTABLE            32771
 #define ID_TOOLS_FINDSTUDENTS           32775
@@ -59,7 +67,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        314
+#define _APS_NEXT_RESOURCE_VALUE        316
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           310

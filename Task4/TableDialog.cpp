@@ -5,6 +5,7 @@
 #include "Task4.h"
 #include "afxdialogex.h"
 #include "TableDialog.h"
+#include "FindStudentsDialog.h"
 
 
 // TableDialog dialog
@@ -12,9 +13,10 @@
 IMPLEMENT_DYNAMIC(TableDialog, CDialogEx)
 
 TableDialog::TableDialog(CWnd* pParent /*=nullptr*/, CString _text)
-	: CDialogEx(IDD_DIALOG1, pParent)
+	: CDialogEx(IDD_TABLE_DIALOG, pParent)
 {
     _tableText = _text;
+    _studentManager = new StudentManager();
 }
 
 TableDialog::~TableDialog()
@@ -24,33 +26,26 @@ TableDialog::~TableDialog()
 void TableDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+    DDX_Control(pDX, IDC_STUDENTS_LIST, _studentList);
 }
 
-
-int TableDialog::OnInitDialog()
+BOOL TableDialog::OnInitDialog()
 {
     CDialog::OnInitDialog();
-    _studentManager = StudentManager();
 
-    CButton* pButton = (CButton*)GetDlgItem(IDC_BUTTON1);
-    if (pButton != nullptr)
-    {
-        pButton->SetWindowText(_T("Поиск"));
-    }
+    _studentList.SetExtendedStyle(_studentList.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 
-    listCtrl.Create(WS_CHILD | WS_VISIBLE | LVS_REPORT, CRect(10, 10, 320, 355), this, 1001);
-
-    listCtrl.InsertColumn(0, _T("Фамилия"), LVCFMT_LEFT, 160);
-    listCtrl.InsertColumn(1, _T("Предмет"), LVCFMT_LEFT, 160);
+    _studentList.InsertColumn(0, _T("Фамилия"), LVCFMT_LEFT, 150);
+    _studentList.InsertColumn(1, _T("Предмет"), LVCFMT_LEFT, 150);
 
     LoadData();
 
-    return 0;
+    return true;
 }
 
 void TableDialog::LoadData()
 {
-    listCtrl.DeleteAllItems();
+    _studentList.DeleteAllItems();
 
     SubjectManager& subjectManager = SubjectManager::GetInstance();
 
@@ -63,32 +58,18 @@ void TableDialog::LoadData()
         int pos = strLine.Find(_T(' '));
         if (pos != -1)
         {
-            CString lastName = strLine.Left(pos);
+            CString surname = strLine.Left(pos);
             CString subjectName = strLine.Mid(pos + 1);
-            Subject subject = Subject(subjectName);
-            subjectManager.AddSubject(subject);
-            Student* student = new Student(lastName, &subject);
-            _studentManager.AddStudent(student);
 
-            int nIndex = listCtrl.InsertItem(0, lastName);
-            listCtrl.SetItemText(nIndex, 1, subjectName);
+            Subject* subject = new Subject(subjectName);
+            subjectManager.AddSubject(subject);
+            _studentManager->AddStudent(surname, subject);
+
+            int nIndex = _studentList.InsertItem(0, surname);
+            _studentList.SetItemText(nIndex, 1, subjectName);
         }
     }
 }
-
-void TableDialog::InputToTable()
-{
-    listCtrl.DeleteAllItems();
-
-    //for (auto student : _studentManager.GetStudents()) {
-    //    int nIndex = listCtrl.InsertItem(0, student.);
-    //        listCtrl.SetItemText(nIndex, 1, subjectName);
-    //}
-
-    
-}
-
-
 
 BEGIN_MESSAGE_MAP(TableDialog, CDialogEx)
     ON_BN_CLICKED(IDC_BUTTON1, &TableDialog::OnBnClickedButton1)
@@ -100,5 +81,7 @@ END_MESSAGE_MAP()
 
 void TableDialog::OnBnClickedButton1()
 {
-    // TODO: Add your control notification handler code here
+    FindStudentsDialog* pDlg = new FindStudentsDialog(this, _studentManager);
+    pDlg->Create(IDD_DIALOG2, this);
+    pDlg->ShowWindow(SW_SHOW);
 }

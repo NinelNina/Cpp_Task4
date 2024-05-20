@@ -1,6 +1,7 @@
 #pragma once
 #include "Subject.h"
-#include <vector>
+#include "SubjectComparator.h"
+#include <set>
 
 using namespace std;
 
@@ -9,13 +10,15 @@ class SubjectManager
 public:
     static SubjectManager& GetInstance();
 
-    void AddSubject(const Subject& subject);
+    void AddSubject(Subject* subject);
+    void AddSubject(CString subjectName);
+    Subject* FindSubject(CString subjectName);
 
-    vector<Subject>& GetSubjects();
+    set<Subject*, SubjectComparator> GetSubjects();
 
 private:
     SubjectManager();
     ~SubjectManager();
-    vector<Subject> _subjects;
+    set<Subject*, SubjectComparator> _subjects;
 };
 

@@ -14,8 +14,9 @@ public:
 	~StudentManager();
 	
 	void AddStudent(Student* student);
+	void AddStudent(CString surname, Subject* subject);
 	const vector<Student*> GetStudents();
-	vector<Student*> findStudents(vector<Subject*> learningSubjects, vector<Subject*> notlearningSubjects);
-	//void inputFile(string filename);
+	Student* FindStudentBySurname(const CString& surname);
+	vector<Student*> FindStudents(vector<Subject*> learningSubjects, vector<Subject*> notlearningSubjects);
 };
 

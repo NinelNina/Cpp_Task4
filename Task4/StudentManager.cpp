@@ -19,93 +19,101 @@ void StudentManager::AddStudent(Student* student)
     _students.push_back(student);
 }
 
+void StudentManager::AddStudent(CString surname, Subject* subject)
+{
+    Student* existingStudent = FindStudentBySurname(surname);
+    if (existingStudent)
+    {
+        existingStudent->AddSubject(subject);
+    }
+    else
+    {
+        Student* student = new Student(surname, subject);
+        AddStudent(student);
+    }
+}
+
 const vector<Student*> StudentManager::GetStudents()
 {
     return _students;
 }
 
-vector<Student*> StudentManager::findStudents(vector<Subject*> learningSubjects, vector<Subject*> notlearningSubjects) {
-    vector<Student*> filteredStudents;
+Student* StudentManager::FindStudentBySurname(const CString& surname)
+{
+    for (auto student : _students)
+    {
+        if (student->GetSurname() == surname)
+        {
+            return student;
+        }
+    }
+    return nullptr;
+}
 
-    for (Student* student : _students) {
-        set<Subject*> studentSubjects = student->getSubjects();
-        bool learnsAllRequired = true;
-        bool learnsForbidden = false;
+vector<Student*> StudentManager::FindStudents(const vector<Subject*> learningSubjects, const vector<Subject*> notLearningSubjects)
+{
+    vector<Student*> result;
 
-        for (Subject* requiredSubject : learningSubjects) {
-            if (studentSubjects.find(requiredSubject) == studentSubjects.end()) {
-                learnsAllRequired = false;
+    for (auto student : _students)
+    {
+        bool learnsAllSubjects = true;
+        bool doesNotLearnAnySubject = true;
+
+        const set<Subject*, SubjectComparator>& studentSubjects = student->GetSubjects();
+
+        for (const auto subject : learningSubjects)
+        {
+            if (studentSubjects.find(subject) == studentSubjects.end())
+            {
+                learnsAllSubjects = false;
                 break;
             }
         }
 
-        for (Subject* forbiddenSubject : notlearningSubjects) {
-            if (studentSubjects.find(forbiddenSubject) != studentSubjects.end()) {
-                learnsForbidden = true;
+        for (const auto subject : notLearningSubjects)
+        {
+            if (studentSubjects.find(subject) != studentSubjects.end())
+            {
+                doesNotLearnAnySubject = false;
                 break;
             }
         }
 
-        if (learnsAllRequired && !learnsForbidden) {
-            filteredStudents.push_back(student);
+        if (learnsAllSubjects && doesNotLearnAnySubject)
+        {
+            result.push_back(student);
         }
     }
 
-    return filteredStudents;
+    return result;
 }
 
-//void StudentManager::inputFile(string filename) {
-//    ifstream inputFile(filename);
-//    if (!inputFile.is_open()) {
-//        cerr << "Ошибка открытия файла." << endl;
-//        return;
-//    }
+//vector<Student*> StudentManager::findStudents(vector<Subject*> learningSubjects, vector<Subject*> notlearningSubjects) {
+//    vector<Student*> filteredStudents;
 //
-//    string line;
-//    while (getline(inputFile, line)) {
-//        size_t pos = line.find("\t");
-//        if (pos == string::npos) {
-//            cerr << "Неверный формат: " << line << endl;
-//            continue;
-//        }
+//    for (Student* student : _students) {
+//        set<Subject*, SubjectComparator> studentSubjects = student->getSubjects();
+//        bool learnsAllRequired = true;
+//        bool learnsForbidden = false;
 //
-//        string surname = line.substr(0, pos);
-//        string subjectName = line.substr(pos + 1);
-//
-//        bool subjectExists = false;
-//        Subject* subject = nullptr;
-//        for (Subject* s : _subjects) {
-//            if (s->getName() == subjectName) {
-//                subjectExists = true;
-//                subject = s;
+//        for (Subject* requiredSubject : learningSubjects) {
+//            if (studentSubjects.find(requiredSubject) == studentSubjects.end()) {
+//                learnsAllRequired = false;
 //                break;
 //            }
 //        }
 //
-//        if (!subjectExists) {
-//            subject = new Subject(subjectName);
-//            _subjects.push_back(subject);
-//        }
-//
-//        bool studentExists = false;
-//        Student* student = nullptr;
-//        for (Student* s : _students) {
-//            if (s->getSurname() == surname) {
-//                studentExists = true;
-//                student = s;
+//        for (Subject* forbiddenSubject : notlearningSubjects) {
+//            if (studentSubjects.find(forbiddenSubject) != studentSubjects.end()) {
+//                learnsForbidden = true;
 //                break;
 //            }
 //        }
 //
-//        if (studentExists) {
-//            student->addSubject(subject);
-//        }
-//        else {
-//            
-//            student = new Student(surname, subject);
-//            _students.push_back(student);
+//        if (learnsAllRequired && !learnsForbidden) {
+//            filteredStudents.push_back(student);
 //        }
 //    }
 //
-//    inputFile.close();
+//    return filteredStudents;
 //}

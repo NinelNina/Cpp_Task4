@@ -7,12 +7,31 @@ SubjectManager& SubjectManager::GetInstance()
     return instance;
 }
 
-void SubjectManager::AddSubject(const Subject& subject)
+void SubjectManager::AddSubject(Subject* subject)
 {
-    _subjects.push_back(subject);
+    _subjects.insert(subject);
 }
 
-vector<Subject>& SubjectManager::GetSubjects()
+void SubjectManager::AddSubject(CString subjectName)
+{
+    Subject* subject = new Subject(subjectName);
+    _subjects.insert(subject);
+}
+
+Subject* SubjectManager::FindSubject(CString subjectName)
+{
+    for (auto& subject : _subjects)
+    {
+        if (subject->GetName() == subjectName)
+        {
+            return subject;
+        }
+    }
+
+    return nullptr;
+}
+
+set<Subject*, SubjectComparator> SubjectManager::GetSubjects()
 {
     return _subjects;
 }
@@ -22,7 +41,7 @@ SubjectManager::SubjectManager() {}
 SubjectManager::~SubjectManager()
 {
     for (auto subject : _subjects) {
-        delete &subject;
+        delete subject;
     }
     _subjects.clear();
 }

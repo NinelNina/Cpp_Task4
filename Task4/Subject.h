@@ -10,6 +10,6 @@ private:
 public:
 	Subject(CString name);
 	~Subject();
-	CString getName();
+	CString GetName() const;
 };
 

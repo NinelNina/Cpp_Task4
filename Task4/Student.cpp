@@ -10,11 +10,11 @@ Student::Student(CString surname, Subject* subject) {
 	_subjects.insert(subject);
 }
 
-CString Student::getSurname() {
+CString Student::GetSurname() {
 	return _surname;
 }
 
-set<Subject*> Student::getSubjects(){
+set<Subject*, SubjectComparator> Student::GetSubjects(){
 	return _subjects;
 }
 
@@ -22,6 +22,6 @@ Student::~Student() {
 	_subjects.clear();
 }
 
-void Student::addSubject(Subject* subject) {
+void Student::AddSubject(Subject* subject) {
 	_subjects.insert(subject);
 }

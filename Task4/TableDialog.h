@@ -10,25 +10,23 @@ class TableDialog : public CDialogEx
 	DECLARE_DYNAMIC(TableDialog)
 
 public:
-	TableDialog(CWnd* pParent, CString _text);   // standard constructor
+	TableDialog(CWnd* pParent, CString _text);
 	virtual ~TableDialog();
-	CListCtrl listCtrl;
+	CListCtrl _studentList;
 
-// Dialog Data
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_DIALOG1 };
+	enum { IDD = IDD_TABLE_DIALOG };
 #endif
 
 protected:
 	CString _tableText;
-	StudentManager _studentManager;
+	StudentManager* _studentManager;
 	
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 
-	int OnInitDialog();
+	BOOL OnInitDialog();
 
 	void LoadData();
-	void InputToTable();
 
 	DECLARE_MESSAGE_MAP()
 public:
