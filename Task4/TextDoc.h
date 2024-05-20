@@ -12,6 +12,7 @@ protected: // create from serialization only
 	DECLARE_DYNCREATE(CTextDoc)
 
 	BOOL IsTextValid();
+	static bool loggedTextfileFormat;
 
 	CString _text;
 
@@ -25,6 +26,7 @@ public:
 // Overrides
 public:
 	virtual BOOL OnNewDocument();
+	BOOL OnOpenDocument(LPCTSTR lpszPathName);
 	virtual void Serialize(CArchive& ar);
 #ifdef SHARED_HANDLERS
 	virtual void InitializeSearchContent();

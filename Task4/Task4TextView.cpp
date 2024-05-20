@@ -55,7 +55,10 @@ void CTask4TextView::OnDraw(CDC* pDC)
 	CTextDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
+	{
+		Logger::Instance().Log("Ошибка получения документа в OnDraw().");
 		return;
+	}
 
 	RECT r;
 	CPen pen;
@@ -114,6 +117,8 @@ void CTask4TextView::OnToolsLoadToTable()
 	CTextDoc* pDoc = GetDocument();
 
 	TableDialog* pDlg = new TableDialog(this, pDoc->_text);
-	pDlg->Create(IDD_DIALOG1, this);
+	pDlg->Create(IDD_TABLE_DIALOG, this);
 	pDlg->ShowWindow(SW_SHOW);
+
+	Logger::Instance().Log("Данные загружены в таблицу.");
 }

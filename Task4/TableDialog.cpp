@@ -84,4 +84,6 @@ void TableDialog::OnBnClickedButton1()
     FindStudentsDialog* pDlg = new FindStudentsDialog(this, _studentManager);
     pDlg->Create(IDD_DIALOG2, this);
     pDlg->ShowWindow(SW_SHOW);
+
+    Logger::Instance().Log("Открыт диалог для поиска студентов по изучаемым предметам.");
 }

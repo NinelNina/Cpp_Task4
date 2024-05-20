@@ -30,6 +30,8 @@ END_MESSAGE_MAP()
 
 // CTextDoc construction/destruction
 
+bool CTextDoc::loggedTextfileFormat = false;
+
 CTextDoc::CTextDoc() noexcept
 {
 	_text = _T("Untitled");
@@ -85,6 +87,18 @@ BOOL CTextDoc::OnNewDocument()
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
 
+	loggedTextfileFormat = false;
+
+	return TRUE;
+}
+
+BOOL CTextDoc::OnOpenDocument(LPCTSTR lpszPathName)
+{
+	if (!CDocument::OnOpenDocument(lpszPathName))
+		return FALSE;
+
+	loggedTextfileFormat = false; // Reset the log state for an opened document
+
 	return TRUE;
 }
 
@@ -124,7 +138,6 @@ void CTextDoc::Serialize(CArchive& ar)
 
 const CString& CTextDoc::GetText() 
 {
-
 	return _text;
 }
 
@@ -202,5 +215,15 @@ void CTextDoc::Dump(CDumpContext& dc) const
 
 void CTextDoc::OnUpdateToolsLoadToTable(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable(IsTextValid());
+	bool isTextValid = IsTextValid();
+	pCmdUI->Enable(isTextValid);
+	if (!isTextValid && !loggedTextfileFormat)
+	{
+		Logger::Instance().Log("Текст не соответствует формату \"Фамилия Предмет\".");
+		loggedTextfileFormat = true;
+	}
+	else if (!loggedTextfileFormat) {
+		Logger::Instance().Log("Текст соответствует формату \"Фамилия Предмет\".");
+		loggedTextfileFormat = true;
+	}
 }

@@ -63,6 +63,8 @@ void FindStudentsDialog::FillSubjectList()
         _notLearningList.SetItemText(item, 1, subject->GetName());
         _notLearningList.SetCheck(item, FALSE);
     }
+
+    Logger::Instance().Log("Данные о предметах загружены в таблицы.");
 }
 
 BEGIN_MESSAGE_MAP(FindStudentsDialog, CDialogEx)
@@ -82,7 +84,7 @@ void FindStudentsDialog::OnBnClickedOk()
     SubjectManager& subjectManager = SubjectManager::GetInstance();
     
     int itemCount = _learningList.GetItemCount();
-    for (int i = 0; i < itemCount; ++i)
+    for (int i = 0; i < itemCount; i++)
     {
         if (_learningList.GetCheck(i))
         {
@@ -92,7 +94,7 @@ void FindStudentsDialog::OnBnClickedOk()
     }
 
     itemCount = _notLearningList.GetItemCount();
-    for (int i = 0; i < itemCount; ++i)
+    for (int i = 0; i < itemCount; i++)
     {
         if (_notLearningList.GetCheck(i))
         {
@@ -107,11 +109,14 @@ void FindStudentsDialog::OnBnClickedOk()
     pResultsDialog->Create(IDD_RESULTS_DIALOG, this);
     pResultsDialog->ShowWindow(SW_SHOW);
 
+    Logger::Instance().Log("Вывод списка найденных студентов.");
+
     CDialogEx::OnOK();
 }
 
 
 void FindStudentsDialog::OnBnClickedCancel()
 {
+    Logger::Instance().Log("Поиск отменён.");
     CDialogEx::OnCancel();
 }

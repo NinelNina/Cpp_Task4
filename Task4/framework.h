@@ -32,6 +32,7 @@
 #include "StudentManager.h"
 #include "Student.h"
 #include "SubjectComparator.h"
+#include "Logger.h"
 #include <set>
 #include <vector>
 #include <string>

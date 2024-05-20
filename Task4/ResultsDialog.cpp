@@ -64,9 +64,13 @@ void ResultsDialog::LoadData()
     {
         _notLearningList.InsertItem(0, subject->GetName());
     }
+
+    Logger::Instance().Log("Результирующие данные загружены.");
 }
 
 void ResultsDialog::OnBnClickedOk()
 {
+    Logger::Instance().Log("Закрытие окна с результирующими данными.");
+
     CDialogEx::OnOK();    
 }
