@@ -8,11 +8,13 @@ using namespace std;
 class SubjectManager
 {
 public:
-    static SubjectManager& GetInstance();
+    static SubjectManager* GetInstance();
 
     void AddSubject(Subject* subject);
     void AddSubject(CString subjectName);
     Subject* FindSubject(CString subjectName);
+
+    void Clear();
 
     set<Subject*, SubjectComparator> GetSubjects();
 

@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "SubjectManager.h"
 
-SubjectManager& SubjectManager::GetInstance()
+SubjectManager* SubjectManager::GetInstance()
 {
     static SubjectManager instance;
-    return instance;
+    return &instance;
 }
 
 void SubjectManager::AddSubject(Subject* subject)
@@ -29,6 +29,13 @@ Subject* SubjectManager::FindSubject(CString subjectName)
     }
 
     return nullptr;
+}
+
+void SubjectManager::Clear() {
+    for (auto subject : _subjects) {
+        delete subject;
+    }
+    _subjects.clear();
 }
 
 set<Subject*, SubjectComparator> SubjectManager::GetSubjects()

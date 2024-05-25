@@ -20,6 +20,7 @@ public:
 #endif
 
 protected:
+	SubjectManager* _subjectManager;
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	BOOL OnInitDialog();
 	void FillSubjectList();

@@ -47,7 +47,7 @@ void TableDialog::LoadData()
 {
     _studentList.DeleteAllItems();
 
-    SubjectManager& subjectManager = SubjectManager::GetInstance();
+    SubjectManager* subjectManager = SubjectManager::GetInstance();
 
     CString strLine;
     int startPos = 0;
@@ -62,7 +62,7 @@ void TableDialog::LoadData()
             CString subjectName = strLine.Mid(pos + 1);
 
             Subject* subject = new Subject(subjectName);
-            subjectManager.AddSubject(subject);
+            subjectManager->AddSubject(subject);
             _studentManager->AddStudent(surname, subject);
 
             int nIndex = _studentList.InsertItem(0, surname);
@@ -73,11 +73,18 @@ void TableDialog::LoadData()
 
 BEGIN_MESSAGE_MAP(TableDialog, CDialogEx)
     ON_BN_CLICKED(IDC_BUTTON1, &TableDialog::OnBnClickedButton1)
+    ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
 // TableDialog message handlers
 
+void TableDialog::OnClose()
+{
+    Logger::Instance().Log("Таблица студентов закрыта.");
+    SubjectManager::GetInstance()->Clear();
+    CDialogEx::OnClose();
+}
 
 void TableDialog::OnBnClickedButton1()
 {

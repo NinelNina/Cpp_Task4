@@ -71,6 +71,5 @@ void ResultsDialog::LoadData()
 void ResultsDialog::OnBnClickedOk()
 {
     Logger::Instance().Log("Закрытие окна с результирующими данными.");
-
     CDialogEx::OnOK();    
 }

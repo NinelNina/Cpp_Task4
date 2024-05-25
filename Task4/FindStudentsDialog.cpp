@@ -16,6 +16,7 @@ FindStudentsDialog::FindStudentsDialog(CWnd* pParent /*=nullptr*/, StudentManage
 	: CDialogEx(IDD_FIND_STUDENTS_DIALOG, pParent)
 {
 	_studentManager = studentManager;
+    _subjectManager = SubjectManager::GetInstance();
 }
 
 FindStudentsDialog::~FindStudentsDialog()
@@ -51,9 +52,7 @@ void FindStudentsDialog::FillSubjectList()
     _learningList.DeleteAllItems();
     _notLearningList.DeleteAllItems();
 
-    SubjectManager& subjectManager = SubjectManager::GetInstance();
-
-    for (auto& subject : subjectManager.GetSubjects())
+    for (auto& subject : _subjectManager->GetSubjects())
     {
         int item = _learningList.InsertItem(0, _T(""));
         _learningList.SetItemText(item, 1, subject->GetName());
@@ -80,8 +79,6 @@ void FindStudentsDialog::OnBnClickedOk()
 {
     vector<Subject*> learningSubjects;
     vector<Subject*> notLearningSubjects;
-
-    SubjectManager& subjectManager = SubjectManager::GetInstance();
     
     int itemCount = _learningList.GetItemCount();
     for (int i = 0; i < itemCount; i++)
@@ -89,7 +86,7 @@ void FindStudentsDialog::OnBnClickedOk()
         if (_learningList.GetCheck(i))
         {
             CString subjectName = _learningList.GetItemText(i, 1);
-            learningSubjects.push_back(subjectManager.FindSubject(subjectName));
+            learningSubjects.push_back(_subjectManager->FindSubject(subjectName));
         }
     }
 
@@ -99,7 +96,7 @@ void FindStudentsDialog::OnBnClickedOk()
         if (_notLearningList.GetCheck(i))
         {
             CString subjectName = _notLearningList.GetItemText(i, 1);
-            notLearningSubjects.push_back(subjectManager.FindSubject(subjectName));
+            notLearningSubjects.push_back(_subjectManager->FindSubject(subjectName));
         }
     }
 
