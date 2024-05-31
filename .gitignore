@@ -361,5 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Task4/TestData/Students_2_result.txt
-/Task4/log.txt
