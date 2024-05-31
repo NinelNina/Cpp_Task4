@@ -3,6 +3,7 @@
 #include "afxdialogex.h"
 #include "ResultsDialog.h"
 #include "TextDoc.h"
+#include "TableDialog.h"
 
 
 IMPLEMENT_DYNAMIC(ResultsDialog, CDialogEx)
@@ -27,7 +28,7 @@ void ResultsDialog::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(ResultsDialog, CDialogEx)
-    ON_BN_CLICKED(IDOK, &ResultsDialog::OnBnClickedOk)
+    ON_BN_CLICKED(IDC_RESULT_BUTTON, &ResultsDialog::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 BOOL ResultsDialog::OnInitDialog()
@@ -72,6 +73,12 @@ void ResultsDialog::LoadData()
 void ResultsDialog::OnBnClickedOk()
 {
     Logger::Instance().Log("Закрытие окна с результирующими данными.");
+
+    CDialog* pTableDialog = dynamic_cast<CDialog*>(FindWindow(nullptr, _T("Список студентов")));
+    if (pTableDialog)
+    {
+        pTableDialog->EndDialog(IDOK);
+    }
 
     CString resultsText = GetResultsText();
 

@@ -1,5 +1,3 @@
-// FindStudentsDialog.cpp : implementation file
-//
 
 #include "pch.h"
 #include "Task4.h"
@@ -13,9 +11,9 @@
 IMPLEMENT_DYNAMIC(FindStudentsDialog, CDialogEx)
 
 FindStudentsDialog::FindStudentsDialog(CWnd* pParent /*=nullptr*/, StudentManager* studentManager)
-	: CDialogEx(IDD_FIND_STUDENTS_DIALOG, pParent)
+    : CDialogEx(IDD_FIND_STUDENTS_DIALOG, pParent)
 {
-	_studentManager = studentManager;
+    _studentManager = studentManager;
     _subjectManager = SubjectManager::GetInstance();
 }
 
@@ -25,7 +23,7 @@ FindStudentsDialog::~FindStudentsDialog()
 
 void FindStudentsDialog::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+    CDialogEx::DoDataExchange(pDX);
     DDX_Control(pDX, IDC_LEARNING_LIST, _learningList);
     DDX_Control(pDX, IDC_NOT_LEARNING_LIST, _notLearningList);
 }
@@ -35,11 +33,11 @@ BOOL FindStudentsDialog::OnInitDialog()
     CDialogEx::OnInitDialog();
 
     _learningList.SetExtendedStyle(_learningList.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_CHECKBOXES);
-    _notLearningList.SetExtendedStyle(_learningList.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_CHECKBOXES);
+    _notLearningList.SetExtendedStyle(_notLearningList.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_CHECKBOXES);
 
     _learningList.InsertColumn(0, _T(""), LVCFMT_CENTER, 50);
     _learningList.InsertColumn(1, _T("Предмет"), LVCFMT_LEFT, 132);
-    
+
     _notLearningList.InsertColumn(0, _T(""), LVCFMT_CENTER, 50);
     _notLearningList.InsertColumn(1, _T("Предмет"), LVCFMT_LEFT, 132);
     FillSubjectList();
@@ -69,17 +67,18 @@ void FindStudentsDialog::FillSubjectList()
 BEGIN_MESSAGE_MAP(FindStudentsDialog, CDialogEx)
     ON_BN_CLICKED(IDOK, &FindStudentsDialog::OnBnClickedOk)
     ON_BN_CLICKED(IDCANCEL, &FindStudentsDialog::OnBnClickedCancel)
+    ON_NOTIFY(LVN_ITEMCHANGED, IDC_LEARNING_LIST, &FindStudentsDialog::OnItemChangedLearningList)
+    ON_NOTIFY(LVN_ITEMCHANGED, IDC_NOT_LEARNING_LIST, &FindStudentsDialog::OnItemChangedNotLearningList)
 END_MESSAGE_MAP()
 
 
 // FindStudentsDialog message handlers
 
-
 void FindStudentsDialog::OnBnClickedOk()
 {
     vector<Subject*> learningSubjects;
     vector<Subject*> notLearningSubjects;
-    
+
     int itemCount = _learningList.GetItemCount();
     for (int i = 0; i < itemCount; i++)
     {
@@ -117,3 +116,46 @@ void FindStudentsDialog::OnBnClickedCancel()
     Logger::Instance().Log("Поиск отменён.", Logger::WARNING);
     CDialogEx::OnCancel();
 }
+
+void FindStudentsDialog::OnItemChangedLearningList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+    LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+    int itemIndex = pNMLV->iItem;
+    if (itemIndex >= 0)
+    {
+        BOOL checked = _learningList.GetCheck(itemIndex);
+        if (checked)
+        {
+            _notLearningList.SetItemState(itemIndex, 0, LVIS_SELECTED | LVIS_FOCUSED);
+            _notLearningList.SetCheck(itemIndex, FALSE);
+            _notLearningList.SetItemState(itemIndex, LVIS_CUT, LVIS_CUT);
+        }
+        else
+        {
+            _notLearningList.SetItemState(itemIndex, 0, LVIS_CUT);
+        }
+    }
+    *pResult = 0;
+}
+
+void FindStudentsDialog::OnItemChangedNotLearningList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+    LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+    int itemIndex = pNMLV->iItem;
+    if (itemIndex >= 0)
+    {
+        BOOL checked = _notLearningList.GetCheck(itemIndex);
+        if (checked)
+        {
+            _learningList.SetItemState(itemIndex, 0, LVIS_SELECTED | LVIS_FOCUSED);
+            _learningList.SetCheck(itemIndex, FALSE);
+            _learningList.SetItemState(itemIndex, LVIS_CUT, LVIS_CUT);
+        }
+        else
+        {
+            _learningList.SetItemState(itemIndex, 0, LVIS_CUT);
+        }
+    }
+    *pResult = 0;
+}
+
