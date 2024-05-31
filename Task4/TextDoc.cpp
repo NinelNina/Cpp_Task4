@@ -227,3 +227,9 @@ void CTextDoc::OnUpdateToolsLoadToTable(CCmdUI* pCmdUI)
 		loggedTextfileFormat = true;
 	}
 }
+
+void CTextDoc::SetText(const CString& text)
+{
+	_text = text;
+	UpdateAllViews(nullptr);
+}

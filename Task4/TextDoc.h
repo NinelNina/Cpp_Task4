@@ -21,6 +21,7 @@ public:
 
 // Operations
 public:
+	void SetText(const CString& text);
 	const CString& GetText();
 
 // Overrides

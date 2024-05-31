@@ -9,6 +9,7 @@ class ResultsDialog : public CDialogEx
 public:
     ResultsDialog(CWnd* pParent = nullptr, vector<Student*> students = {}, vector<Subject*> learningSubjects = {}, vector<Subject*> notLearningSubjects = {});
     virtual ~ResultsDialog();
+    CString GetResultsText() const;
 
 #ifdef AFX_DESIGN_TIME
     enum { IDD = IDD_RESULTS_DIALOG };

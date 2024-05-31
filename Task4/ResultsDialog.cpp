@@ -2,6 +2,7 @@
 #include "Task4.h"
 #include "afxdialogex.h"
 #include "ResultsDialog.h"
+#include "TextDoc.h"
 
 
 IMPLEMENT_DYNAMIC(ResultsDialog, CDialogEx)
@@ -71,5 +72,29 @@ void ResultsDialog::LoadData()
 void ResultsDialog::OnBnClickedOk()
 {
     Logger::Instance().Log("Закрытие окна с результирующими данными.");
-    CDialogEx::OnOK();    
+
+    CString resultsText = GetResultsText();
+
+    auto pos = AfxGetApp()->GetFirstDocTemplatePosition();
+    auto pDocTemplate = AfxGetApp()->GetNextDocTemplate(pos);
+    if (pDocTemplate)
+    {
+        auto doc = dynamic_cast<CTextDoc*>(pDocTemplate->CreateNewDocument());
+        doc->SetText(resultsText);
+
+        auto pFrame = pDocTemplate->CreateNewFrame(doc, nullptr);
+        pDocTemplate->InitialUpdateFrame(pFrame, doc);
+    }
+
+    CDialogEx::OnOK();
+}
+
+CString ResultsDialog::GetResultsText() const
+{
+    CString resultsText;
+    for (int i = 0; i < _resultsList.GetItemCount(); ++i)
+    {
+        resultsText += _resultsList.GetItemText(i, 0) + _T("\n");
+    }
+    return resultsText;
 }
