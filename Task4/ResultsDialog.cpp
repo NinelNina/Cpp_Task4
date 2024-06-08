@@ -99,9 +99,18 @@ void ResultsDialog::OnBnClickedOk()
 CString ResultsDialog::GetResultsText() const
 {
     CString resultsText;
-    for (int i = 0; i < _resultsList.GetItemCount(); ++i)
+    /*for (int i = 0; i < _resultsList.GetItemCount(); ++i)
     {
-        resultsText += _resultsList.GetItemText(i, 0) + _T("\n");
+        resultsText += _resultsList.GetItemText(i, 0) + " " + _learningSubjects  + _T("\n");
+    }*/
+
+    for (auto student : _students)
+    {
+        for (auto subject : student->GetSubjects()) 
+        {
+            resultsText += student->GetSurname() + " " + subject->GetName() + _T("\n");
+        }
     }
+
     return resultsText;
 }
